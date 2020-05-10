@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+
+<html lang="en">
+ 	<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+		<title>Baltimore Gov Repairs Department </title>
+
+    <!-- Bootstrap CSS -->
+		<link rel="stylesheet" href="assets/bootstrap/bootstrap4-alpha3.min.css">
+		<!-- Google Font Roboto -->
+		<link rel="stylesheet" href="assets/fonts/font-roboto.css">
+
+		<style>
+			body {
+				background-color: #222222;
+				color: #ffffff;
+				font-family: "Roboto", Helvetica, Arial, sans-serif;
+				font-size: 16px;
+				line-height: 1.5;
+				padding-bottom: 3.5rem;
+				padding-top: 3.5rem;
+			}
+
+			h1, h2, h3, h4, h5, h6 {
+				font-weight: 300;
+			}
+
+			hr {
+				border-top: 1px solid #727273;
+				margin-bottom: 2rem;
+				margin-top: 2rem;
+			}
+
+			#revenue-tag {
+				border-radius: 0px !important;
+				font-size: inherit !important;
+				font-weight: inherit !important;
+			}
+
+			.align-center {
+				text-align: center;
+			}
+
+			.card {
+				background-color: transparent;
+				border: none;
+				margin-bottom: 0px;
+			}
+
+			#sales-doughnut-chart-us, #sales-doughnut-chart-nl, #sales-doughnut-chart-de {
+				height: 280px;
+				margin-top: 1rem;
+				width: 100%;
+			}
+
+			#page-views-spline-area-chart, #orders-spline-area-chart, #revenue-spline-area-chart {
+				height: 100px;
+				width: 100%;
+			}
+
+			#users-doughnut-chart, #users-spline-chart {
+				height: 280px;
+				margin-top: 2rem;
+				width: 100%;
+			}
+
+			#users-countries-bar-chart {
+				height: 360px;
+				margin-top: 2rem;
+				width: 100%;
+			}
+
+      .autocomplete {
+        /*the container must be positioned relative:*/
+        position: relative;
+        display: inline-block;
+      }
+      input {
+        border: 1px solid transparent;
+        background-color: #f1f1f1;
+        padding: 10px;
+        font-size: 16px;
+      }
+      input[type=text] {
+        background-color: #f1f1f1;
+        width: 100%;
+      }
+      input[type=submit] {
+        background-color: DodgerBlue;
+        color: #fff;
+      }
+      .autocomplete-items {
+        position: absolute;
+        border: 1px solid #d4d4d4;
+        border-bottom: none;
+        border-top: none;
+        z-index: 99;
+        /*position the autocomplete items to be the same width as the container:*/
+        top: 100%;
+        left: 0;
+        right: 0;
+      }
+      .autocomplete-items div {
+        padding: 10px;
+        cursor: pointer;
+        background-color: #333333;
+        border-bottom: 1px solid #d4d4d4;
+      }
+      .autocomplete-items div:hover {
+        /*when hovering an item:*/
+        background-color: #555555;
+      }
+      .autocomplete-active {
+        /*when navigating through the items using the arrow keys:*/
+        background-color: DodgerBlue !important;
+        color: #ffffff;
+      }
+
+
+
+
+
+
+
+		</style>
+
+		<!-- Scripts -->
+		<script src="assets/jquery/jquery-3.1.0.min.js"></script>
+		<script src="assets/tether/tether.min.js"></script>
+		<script src="assets/bootstrap/bootstrap4-alpha3.min.js"></script>
+		<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+		<script src="assets/jquery.scrollspeed/jquery.scrollspeed.min.js"></script>
+		<script src="assets/jquery.inview/jquery.inview.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="data_5_7.js"></script>
+    <script src="js/underscore.js"></script>
+    <style>
+        .button {
+          background-color: #00c700;
+          border-radius: 18px;
+          border: 2px solid #222222;
+          color: white;
+          padding: 10px 15px;
+          text-align: center;
+          font-size: 18px;
+          cursor: pointer;
+        }
+
+        .button:hover {
+          background-color: #00c7EE;
+        }
+        </style>
+
+  </head>
+  <body>
+		<div class="container">
+			<h1><b>Data Mechanic </b></h1>
+      <h6><b>Fleet Management System deisgned for Baltimore City</b></h6>
+      <p>
+      <h5 id="date"></h5>
+			<h5 class="m-t-1">Savings This year: <span class="tag tag-success" id="revenue-tag">$1,200,657</span></h5>
+			<hr class="m-t-2">
+      <a class="button" href="mappingbalt.html" role="button">CCTV Mapping</a><br>
+      <p>
+			<h3><b>Please Enter the Vehicle ID: </b></h3>
+      <form autocomplete="off" action="/action_page.php">
+        <div class="autocomplete" style="width:300px;">
+          <input id="myInput" type="text" placeholder="Vehicle ID">
+        </div>
+        <input type="button" value="Search" id="id_search">
+      </form>
+      <p>
+      <h4 id="vehicle_id">Vehicle ID: 030034</h4>
+      <h4 id="vehicle_dpt">Department: FIRE DEPARTMENT</h4>
+      <h4 id="vehicle_make">Make: PIERCE</h4>
+      <h4 id="vehicle_model">Model: PUMPER</h4>
+  <!-- <img src="/Users/akshaynagar/Desktop/Baltimore_App/assets/F12.jpg" height = 200> -->
+<center>
+
+			<!-- sales doughnut charts -->
+			<div class="row">
+				<div class="col-md-4">
+					<div class="inview" id="sales-doughnut-chart-us"></div>
+					<h4 class="align-center">Chances of Comeback</h4>
+				</div>
+
+				<div class="col-md-4">
+					<div class="inview" id="sales-doughnut-chart-nl"></div>
+					<h4 class="align-center">Comeback Trip or Regular Trip</h4>
+				</div>
+
+				<div class="col-md-4">
+					<div class="inview" id="sales-doughnut-chart-de"></div>
+					<h4 class="align-center">Warranty Period</h4>
+				</div>
+			</div>
+    </center>
+			<!-- row sales doughnt charts -->
+
+			<hr>
+
+			<!-- stats spline area charts -->
+			<div class="row">
+				<div class="col-md-4">
+					<div class="card card-block">
+						<h5 class="card-title" >Total Cost Last Year this Vehicle</h5>
+						<h2 id ="number_1">$79600</h2>
+						<div class="inview" id="page-views-spline-area-chart"></div>
+					</div>
+				</div>
+
+				<div class="col-md-4">
+					<div class="card card-block">
+						<h5 class="card-title">Total Cost Last Month this Vehicle</h5>
+						<h2 id ="number_2">$62012</h2>
+						<div class="inview" id="orders-spline-area-chart"></div>
+					</div>
+				</div>
+
+				<div class="col-md-4">
+					<div class="card card-block">
+						<h5 class="card-title">Department Avg Cost Last 12 mo.</h5>
+						<h2 id ="number_3">$42066</h2>
+						<div class="inview" id="revenue-spline-area-chart"></div>
+					</div>
+				</div>
+			</div>
+			<!-- row stats spline area charts -->
+
+			<hr>
+
+			<h3>Comeback vs Regular</h3>
+
+			<!-- users doughnut and spline chart -->
+			<div class="row">
+				<div class="col-lg-3 col-md-4">
+					<div class="inview" id="users-doughnut-chart"></div>
+				</div>
+
+				<div class="col-lg-9 col-md-8">
+					<div class="inview" id="users-spline-chart"></div>
+				</div>
+			</div>
+			<!-- row users doughnut and spline chart -->
+
+			<hr>
+
+			<h3>Percentage of Repairs by Parts</h3>
+
+			<!-- users countries bar chart -->
+			<div class="row">
+				<div class="col-md-12">
+					<div class="inview" id="users-countries-bar-chart"></div>
+				</div>
+			</div>
+			<!-- row users countries bar chart -->
+
+		</div> <!-- container -->
+
+	</body>
+</html>
